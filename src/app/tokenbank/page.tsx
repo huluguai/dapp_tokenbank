@@ -16,7 +16,8 @@ function formatAddress(addr: string) {
 }
 
 export default function TokenBankPage() {
-  const { address, isConnected } = useAccount();
+  const { address, status } = useAccount();
+  const isConnected = status === "connected";
   const { connect, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
   const chainId = useChainId();

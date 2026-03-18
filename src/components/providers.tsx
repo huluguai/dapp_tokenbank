@@ -5,6 +5,7 @@ import { WagmiProvider } from "wagmi";
 import { AppKitProvider } from "@reown/appkit/react";
 import { sepolia } from "@reown/appkit/networks";
 import { config } from "@/lib/wagmi";
+import { AuthProvider } from "@/components/auth-provider";
 
 const queryClient = new QueryClient();
 
@@ -22,7 +23,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           }}
           networks={[sepolia]}
         >
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </AppKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

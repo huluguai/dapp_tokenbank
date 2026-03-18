@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useAccount, useConnect, useDisconnect, useChainId, useConfig } from "wagmi";
 import { useReadContract, useWriteContract } from "wagmi";
 import { waitForTransactionReceipt } from "wagmi/actions";
@@ -142,12 +143,9 @@ export default function TokenBankPage() {
       <div className="mx-auto max-w-2xl px-6 py-16">
         <header className="mb-12 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <a
-              href="/"
-              className="text-slate-400 transition hover:text-white"
-            >
+            <Link href="/" className="text-slate-400 transition hover:text-white">
               ← 返回
-            </a>
+            </Link>
             <h1 className="text-3xl font-bold tracking-tight">
               TokenBank
             </h1>

@@ -4,6 +4,7 @@ import { useChainId, useReadContract, useWatchContractEvent, useWriteContract } 
 import { AppKitButton, useAppKitAccount } from "@reown/appkit/react";
 import { useState } from "react";
 import { formatUnits } from "viem";
+import Link from "next/link";
 import { NFTMARKET_ADDRESS, NFTMARKET_ABI } from "@/contracts/nftmarket";
 import { ERC20_ABI } from "@/contracts/erc20";
 
@@ -186,7 +187,13 @@ export default function NftMarketPage() {
       const now = Date.now();
       setEvents((prev) => {
         const next: MarketEvent[] = logs.map((log) => {
-          const args = log.args as any;
+          const args = log.args as unknown as {
+            listingId: bigint;
+            seller: string;
+            nftContract: string;
+            tokenId: bigint;
+            priceInWei: bigint;
+          };
           return {
             type: "Listed",
             listingId: args.listingId,
@@ -211,7 +218,14 @@ export default function NftMarketPage() {
       const now = Date.now();
       setEvents((prev) => {
         const next: MarketEvent[] = logs.map((log) => {
-          const args = log.args as any;
+          const args = log.args as unknown as {
+            listingId: bigint;
+            buyer: string;
+            seller: string;
+            nftContract: string;
+            tokenId: bigint;
+            priceInWei: bigint;
+          };
           return {
             type: "Sold",
             listingId: args.listingId,
@@ -237,7 +251,10 @@ export default function NftMarketPage() {
       const now = Date.now();
       setEvents((prev) => {
         const next: MarketEvent[] = logs.map((log) => {
-          const args = log.args as any;
+          const args = log.args as unknown as {
+            listingId: bigint;
+            seller: string;
+          };
           return {
             type: "Unlisted",
             listingId: args.listingId,
@@ -320,12 +337,9 @@ export default function NftMarketPage() {
       <div className="mx-auto max-w-4xl px-6 py-16">
         <header className="mb-12 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <a
-              href="/"
-              className="text-slate-400 transition hover:text-white"
-            >
+            <Link href="/" className="text-slate-400 transition hover:text-white">
               ← 返回
-            </a>
+            </Link>
             <h1 className="text-3xl font-bold tracking-tight">NFT Market</h1>
           </div>
           <div className="flex items-center gap-4">

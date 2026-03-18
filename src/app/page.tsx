@@ -48,6 +48,23 @@ export default function Home() {
               上架、查询、购买和下架 NFT，并在前端实时监听 Listed / Sold / Unlisted 合约事件。
             </p>
           </Link>
+
+          <Link
+            href="/erc20wallet"
+            className="group rounded-2xl border border-violet-500/40 bg-slate-800/40 p-6 shadow-lg backdrop-blur transition hover:border-violet-400 hover:bg-slate-800/70 md:col-span-2"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-violet-300">
+                ERC20 Wallet
+              </h2>
+              <span className="text-sm text-violet-200 group-hover:translate-x-1 transition">
+                进入 →
+              </span>
+            </div>
+            <p className="mt-3 text-sm text-slate-300">
+              使用 SIWE 登录后查询转账记录（后端 /api/transfers），并展示指定 ERC20 的余额与基本信息。
+            </p>
+          </Link>
         </main>
       </div>
     </div>

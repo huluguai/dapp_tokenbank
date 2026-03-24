@@ -32,7 +32,7 @@ function TxLink({ chainId, txHash }: { chainId: number; txHash: string }) {
       href={`${host}/tx/${txHash}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="font-mono text-emerald-300 hover:underline break-all"
+      className="break-all font-mono text-sol-mint hover:underline"
       title={txHash}
     >
       {formatAddress(txHash)}
@@ -93,25 +93,30 @@ export default function Erc20WalletPage() {
   const isAuthed = Boolean(jwt);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div className="solana-page">
       <div className="mx-auto max-w-4xl px-6 py-16">
         <header className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/" className="text-slate-400 transition hover:text-white">
+            <Link
+              href="/"
+              className="text-sm text-sol-muted transition hover:text-sol-mint"
+            >
               ← 返回
             </Link>
-            <h1 className="text-3xl font-bold tracking-tight">ERC20 钱包</h1>
+            <h1 className="bg-gradient-to-r from-sol-mint to-sol-purple bg-clip-text text-3xl font-bold tracking-tight text-transparent">
+              ERC20 钱包
+            </h1>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             {chainId ? (
-              <span className="rounded-full bg-slate-700/60 px-3 py-1 text-sm">
+              <span className="rounded-full border border-sol-purple/35 bg-sol-purple/15 px-3 py-1 text-xs font-medium text-sol-mint/90">
                 Chain ID: {chainId}
               </span>
             ) : null}
             {isConnected ? (
               <>
                 {address ? (
-                  <span className="hidden font-mono text-sm text-slate-300 sm:inline">
+                  <span className="hidden font-mono text-sm text-sol-muted sm:inline">
                     {formatAddress(address)}
                   </span>
                 ) : null}
@@ -120,7 +125,7 @@ export default function Erc20WalletPage() {
                     logout();
                     disconnect();
                   }}
-                  className="rounded-lg bg-rose-600 px-4 py-2 text-sm font-medium transition hover:bg-rose-500"
+                  className="rounded-xl border border-rose-500/45 bg-rose-950/45 px-4 py-2 text-sm font-medium text-rose-100 transition hover:bg-rose-900/55"
                 >
                   断开连接
                 </button>
@@ -129,7 +134,7 @@ export default function Erc20WalletPage() {
               <button
                 onClick={() => connect({ connector: connectors[0] })}
                 disabled={isConnectPending}
-                className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium transition hover:bg-emerald-500 disabled:opacity-50"
+                className="rounded-xl bg-sol-mint px-4 py-2 text-sm font-semibold text-slate-950 shadow-[0_0_24px_-4px_rgba(20,241,149,0.45)] transition hover:brightness-110 disabled:opacity-50"
               >
                 {isConnectPending ? "连接中..." : "连接钱包"}
               </button>
@@ -137,58 +142,58 @@ export default function Erc20WalletPage() {
           </div>
         </header>
 
-        <div className="rounded-2xl border border-slate-600/50 bg-slate-800/40 p-8 shadow-xl backdrop-blur space-y-8">
+        <div className="solana-panel space-y-8 p-8 shadow-xl">
           <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-xl bg-slate-700/50 p-4 md:col-span-2">
-              <p className="text-sm text-slate-400">Token</p>
-              <p className="mt-1 text-xl font-semibold">
-                {name} <span className="text-slate-300">({symbol})</span>
+            <div className="solana-stat p-4 md:col-span-2">
+              <p className="text-sm text-sol-muted">Token</p>
+              <p className="mt-1 text-xl font-semibold text-sol-ink">
+                {name} <span className="text-sol-muted">({symbol})</span>
               </p>
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-sol-muted">
                 合约地址:{" "}
                 <a
                   href="https://sepolia.etherscan.io/address/0x0b18F517d8e66b3bd6fB799d44A0ebee473Df20C"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-emerald-300 hover:underline break-all"
+                  className="break-all font-mono text-sol-mint hover:underline"
                 >
                   {INDEXED_TOKEN_ADDRESS}
                 </a>
               </p>
-              <p className="mt-1 text-sm text-slate-400">
-                decimals: <span className="font-mono">{decimals}</span>
+              <p className="mt-1 text-sm text-sol-muted">
+                decimals: <span className="font-mono text-sol-ink">{decimals}</span>
               </p>
             </div>
-            <div className="rounded-xl bg-slate-700/50 p-4">
-              <p className="text-sm text-slate-400">余额</p>
-              <p className="mt-2 text-2xl font-bold">
+            <div className="solana-stat p-4">
+              <p className="text-sm text-sol-muted">余额</p>
+              <p className="mt-2 text-2xl font-bold text-sol-ink">
                 {balance !== undefined && address
                   ? `${formatUnits(balance as bigint, decimals)} ${symbol}`
                   : "-"}
               </p>
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-sol-muted/80">
                 余额读取自链上 `balanceOf`。
               </p>
             </div>
           </section>
 
-          <section className="border-t border-slate-700/60 pt-6">
+          <section className="border-t border-white/10 pt-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 className="text-lg font-semibold">SIWE 登录</h2>
-                <p className="mt-1 text-sm text-slate-400">
+                <h2 className="text-lg font-semibold text-sol-ink">SIWE 登录</h2>
+                <p className="mt-1 text-sm text-sol-muted">
                   登录后才能查询你的转账记录（后端按登录地址过滤）。
                 </p>
               </div>
               <div className="flex items-center gap-3">
                 {isAuthed ? (
                   <>
-                    <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-sm text-emerald-200 border border-emerald-500/30">
+                    <span className="rounded-full border border-sol-mint/35 bg-sol-mint/12 px-3 py-1 text-sm text-teal-100">
                       已登录
                     </span>
                     <button
                       onClick={() => logout()}
-                      className="rounded-lg bg-slate-700 px-4 py-2 text-sm font-medium transition hover:bg-slate-600"
+                      className="rounded-xl border border-white/12 bg-white/5 px-4 py-2 text-sm font-medium text-sol-ink transition hover:bg-white/10"
                     >
                       退出登录
                     </button>
@@ -200,7 +205,7 @@ export default function Erc20WalletPage() {
                       await login({ address });
                     }}
                     disabled={!isConnected || !address || isLoggingIn}
-                    className="rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium transition hover:bg-sky-500 disabled:opacity-50"
+                    className="rounded-xl border border-sol-purple/45 bg-sol-purple/25 px-4 py-2 text-sm font-semibold text-violet-100 shadow-[0_0_18px_-6px_rgba(153,69,255,0.45)] transition hover:bg-sol-purple/35 disabled:opacity-50"
                   >
                     {isLoggingIn ? "登录中..." : "SIWE 登录"}
                   </button>
@@ -209,76 +214,76 @@ export default function Erc20WalletPage() {
             </div>
 
             {!isConnected ? (
-              <p className="mt-4 rounded-xl bg-slate-700/30 p-4 text-sm text-slate-400">
+              <p className="mt-4 rounded-xl border border-white/10 bg-black/25 p-4 text-sm text-sol-muted">
                 请先连接钱包，再进行 SIWE 登录。
               </p>
             ) : null}
 
             {authError ? (
-              <p className="mt-4 rounded-xl bg-rose-500/10 border border-rose-500/40 p-4 text-sm text-rose-200">
+              <p className="mt-4 rounded-xl border border-rose-500/40 bg-rose-950/35 p-4 text-sm text-rose-100">
                 {authError}
               </p>
             ) : null}
           </section>
 
-          <section className="border-t border-slate-700/60 pt-6">
+          <section className="border-t border-white/10 pt-6">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <h2 className="text-lg font-semibold">转账记录</h2>
-                <p className="mt-1 text-sm text-slate-400">
+                <h2 className="text-lg font-semibold text-sol-ink">转账记录</h2>
+                <p className="mt-1 text-sm text-sol-muted">
                   按 blockNumber/logIndex 倒序分页（cursor 透传）。
                 </p>
               </div>
               <button
                 onClick={() => transfersQuery.refetch()}
                 disabled={!isAuthed || transfersQuery.isFetching}
-                className="rounded-lg bg-slate-700 px-4 py-2 text-sm font-medium transition hover:bg-slate-600 disabled:opacity-50"
+                className="rounded-xl border border-white/12 bg-white/5 px-4 py-2 text-sm font-medium text-sol-ink transition hover:bg-white/10 disabled:opacity-50"
               >
                 {transfersQuery.isFetching ? "刷新中..." : "刷新"}
               </button>
             </div>
 
             {!isAuthed ? (
-              <p className="mt-4 rounded-xl bg-slate-700/30 p-4 text-sm text-slate-400">
+              <p className="mt-4 rounded-xl border border-white/10 bg-black/25 p-4 text-sm text-sol-muted">
                 请先完成 SIWE 登录。
               </p>
             ) : transfersQuery.isLoading ? (
-              <p className="mt-4 text-sm text-slate-400">加载中...</p>
+              <p className="mt-4 text-sm text-sol-muted">加载中...</p>
             ) : transfersQuery.isError ? (
-              <p className="mt-4 rounded-xl bg-rose-500/10 border border-rose-500/40 p-4 text-sm text-rose-200">
+              <p className="mt-4 rounded-xl border border-rose-500/40 bg-rose-950/35 p-4 text-sm text-rose-100">
                 {(transfersQuery.error as Error).message}
               </p>
             ) : items.length === 0 ? (
-              <p className="mt-4 text-sm text-slate-400">暂无转账记录。</p>
+              <p className="mt-4 text-sm text-sol-muted">暂无转账记录。</p>
             ) : (
-              <div className="mt-4 overflow-x-auto rounded-xl border border-slate-700/60">
+              <div className="mt-4 overflow-x-auto rounded-xl border border-white/10">
                 <table className="min-w-full text-sm">
-                  <thead className="bg-slate-900/60 text-slate-300">
+                  <thead className="bg-black/40 text-sol-muted">
                     <tr>
-                      <th className="px-4 py-3 text-left font-semibold">区块</th>
-                      <th className="px-4 py-3 text-left font-semibold">Tx</th>
-                      <th className="px-4 py-3 text-left font-semibold">From</th>
-                      <th className="px-4 py-3 text-left font-semibold">To</th>
-                      <th className="px-4 py-3 text-right font-semibold">Amount</th>
+                      <th className="px-4 py-3 text-left font-semibold text-sol-ink">区块</th>
+                      <th className="px-4 py-3 text-left font-semibold text-sol-ink">Tx</th>
+                      <th className="px-4 py-3 text-left font-semibold text-sol-ink">From</th>
+                      <th className="px-4 py-3 text-left font-semibold text-sol-ink">To</th>
+                      <th className="px-4 py-3 text-right font-semibold text-sol-ink">Amount</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-700/60">
+                  <tbody className="divide-y divide-white/10">
                     {items.map((it, idx) => (
-                      <tr key={`${it.txHash}-${it.logIndex}-${idx}`} className="bg-slate-800/30">
-                        <td className="px-4 py-3 font-mono text-slate-200">
+                      <tr key={`${it.txHash}-${it.logIndex}-${idx}`} className="bg-black/15">
+                        <td className="px-4 py-3 font-mono text-sol-ink">
                           {it.blockNumber}
-                          <span className="text-slate-500">#{it.logIndex}</span>
+                          <span className="text-sol-muted">#{it.logIndex}</span>
                         </td>
                         <td className="px-4 py-3">
                           <TxLink chainId={chainId} txHash={it.txHash} />
                         </td>
-                        <td className="px-4 py-3 font-mono text-slate-300">
+                        <td className="px-4 py-3 font-mono text-sol-muted">
                           {formatAddress(it.from)}
                         </td>
-                        <td className="px-4 py-3 font-mono text-slate-300">
+                        <td className="px-4 py-3 font-mono text-sol-muted">
                           {formatAddress(it.to)}
                         </td>
-                        <td className="px-4 py-3 text-right font-mono text-slate-100">
+                        <td className="px-4 py-3 text-right font-mono text-sol-ink">
                           {formatAmount(it.amount, decimals)} {symbol}
                         </td>
                       </tr>
@@ -293,7 +298,7 @@ export default function Erc20WalletPage() {
                 <button
                   onClick={() => transfersQuery.fetchNextPage()}
                   disabled={transfersQuery.isFetchingNextPage}
-                  className="w-full rounded-lg bg-emerald-600 px-6 py-3 font-medium transition hover:bg-emerald-500 disabled:opacity-50"
+                  className="w-full rounded-xl bg-sol-mint px-6 py-3 font-semibold text-slate-950 shadow-[0_0_24px_-6px_rgba(20,241,149,0.45)] transition hover:brightness-110 disabled:opacity-50"
                 >
                   {transfersQuery.isFetchingNextPage ? "加载中..." : "加载更多"}
                 </button>

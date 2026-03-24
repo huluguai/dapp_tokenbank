@@ -1,5 +1,9 @@
 export const NFTMARKET_ADDRESS =
-  "0x4070357cde971f4531d7734ec9b1a717b79124ee" as const;
+  "0x84D6B75ddE24F0398aD2033f610bAAd483f52Cb1" as const;
+
+/** 白名单 EIP-712 签名者（与链上 whitelistSigner 一致，便于展示核对） */
+export const NFTMARKET_WHITELIST_SIGNER =
+  "0xfd8890Be36244f4270602B1F46717882c5ffDf47" as const;
 
 export const NFTMARKET_ABI = [
   {
@@ -31,24 +35,6 @@ export const NFTMARKET_ABI = [
       },
     ],
     stateMutability: "view",
-  },
-  {
-    type: "function",
-    name: "buyNFT",
-    inputs: [
-      {
-        name: "_listingId",
-        type: "uint256",
-        internalType: "uint256",
-      },
-      {
-        name: "_amount",
-        type: "uint256",
-        internalType: "uint256",
-      },
-    ],
-    outputs: [],
-    stateMutability: "nonpayable",
   },
   {
     type: "function",
@@ -134,6 +120,29 @@ export const NFTMARKET_ABI = [
         type: "bool",
         internalType: "bool",
       },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "permitBuy",
+    inputs: [
+      { name: "_listingId", type: "uint256", internalType: "uint256" },
+      { name: "_amount", type: "uint256", internalType: "uint256" },
+      { name: "_deadline", type: "uint256", internalType: "uint256" },
+      { name: "_v", type: "uint8", internalType: "uint8" },
+      { name: "_r", type: "bytes32", internalType: "bytes32" },
+      { name: "_s", type: "bytes32", internalType: "bytes32" },
+    ],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "whitelistSigner",
+    inputs: [],
+    outputs: [
+      { name: "", type: "address", internalType: "address" },
     ],
     stateMutability: "view",
   },

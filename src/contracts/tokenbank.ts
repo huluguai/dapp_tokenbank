@@ -1,5 +1,5 @@
 export const TOKENBANK_ADDRESS =
-  "0xBB5Dce153B4bF0b0106b47A93957f55e3fC28d41" as const;
+  "0xB156FAA36F54cbf177114d78A23EC26D2FFFE48F" as const;
 
 export const TOKENBANK_ABI = [
   {
@@ -21,6 +21,108 @@ export const TOKENBANK_ABI = [
         name: "amount",
         type: "uint256",
         internalType: "uint256",
+      },
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "bool",
+        internalType: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "permitDeposit",
+    inputs: [
+      {
+        name: "owner",
+        type: "address",
+        internalType: "address",
+      },
+      {
+        name: "value",
+        type: "uint256",
+        internalType: "uint256",
+      },
+      {
+        name: "deadline",
+        type: "uint256",
+        internalType: "uint256",
+      },
+      {
+        name: "v",
+        type: "uint8",
+        internalType: "uint8",
+      },
+      {
+        name: "r",
+        type: "bytes32",
+        internalType: "bytes32",
+      },
+      {
+        name: "s",
+        type: "bytes32",
+        internalType: "bytes32",
+      },
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "bool",
+        internalType: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "depositWithPermit2",
+    inputs: [
+      {
+        name: "amount",
+        type: "uint256",
+        internalType: "uint256",
+      },
+      {
+        name: "permit",
+        type: "tuple",
+        internalType: "struct PermitTransferFrom",
+        components: [
+          {
+            name: "permitted",
+            type: "tuple",
+            internalType: "struct TokenPermissions",
+            components: [
+              {
+                name: "token",
+                type: "address",
+                internalType: "address",
+              },
+              {
+                name: "amount",
+                type: "uint256",
+                internalType: "uint256",
+              },
+            ],
+          },
+          {
+            name: "nonce",
+            type: "uint256",
+            internalType: "uint256",
+          },
+          {
+            name: "deadline",
+            type: "uint256",
+            internalType: "uint256",
+          },
+        ],
+      },
+      {
+        name: "signature",
+        type: "bytes",
+        internalType: "bytes",
       },
     ],
     outputs: [

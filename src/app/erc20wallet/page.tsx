@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { formatUnits } from "viem";
@@ -42,6 +42,12 @@ function TxLink({ chainId, txHash }: { chainId: number; txHash: string }) {
 
 export default function Erc20WalletPage() {
   const chainId = useChainId();
+  /** wagmi chainId 在 SSR 与首帧客户端常不一致，挂载后再展示真实值，避免 hydration mismatch */
+  const [hasMounted, setHasMounted] = useState(false);
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   const { address, status } = useAccount();
   const isConnected = status === "connected";
   const { connect, connectors, isPending: isConnectPending } = useConnect();
@@ -108,11 +114,10 @@ export default function Erc20WalletPage() {
             </h1>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            {chainId ? (
-              <span className="rounded-full border border-sol-purple/35 bg-sol-purple/15 px-3 py-1 text-xs font-medium text-sol-mint/90">
-                Chain ID: {chainId}
-              </span>
-            ) : null}
+            <span className="rounded-full border border-sol-purple/35 bg-sol-purple/15 px-3 py-1 text-xs font-medium text-sol-mint/90">
+              Chain ID:{" "}
+              {hasMounted && chainId != null ? chainId : "—"}
+            </span>
             {isConnected ? (
               <>
                 {address ? (

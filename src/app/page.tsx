@@ -14,7 +14,7 @@ export default function Home() {
             </h1>
             <p className="mt-3 max-w-xl text-sm text-sol-muted md:text-base">
               基于 Next.js、wagmi 与 Viem 构建的去中心化应用，
-              提供代币存款银行与 NFT 交易市场两个模块。
+              提供代币存款银行、Meme 发射与 NFT 交易市场等模块。
             </p>
           </div>
         </header>
@@ -51,6 +51,23 @@ export default function Home() {
             </div>
             <p className="mt-3 text-sm text-sol-muted">
               上架、查询、购买和下架 NFT，并在前端实时监听 Listed / Sold / Unlisted 合约事件。
+            </p>
+          </Link>
+
+          <Link
+            href="/meme"
+            className="group solana-panel rounded-2xl p-6 transition duration-300 hover:border-teal-400/40 hover:shadow-[0_0_40px_-8px_rgba(45,212,191,0.35)]"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="bg-gradient-to-r from-teal-300 to-sol-mint bg-clip-text text-xl font-semibold text-transparent">
+                Meme 发射
+              </h2>
+              <span className="text-sm text-teal-200/90 transition group-hover:translate-x-1">
+                进入 →
+              </span>
+            </div>
+            <p className="mt-3 text-sm text-sol-muted">
+              Sepolia 上通过工厂部署 Meme 代币，并在本地列表中记录；支持按地址支付单价 ETH 进行按次铸造。
             </p>
           </Link>
 

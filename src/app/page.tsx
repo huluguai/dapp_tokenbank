@@ -72,6 +72,24 @@ export default function Home() {
           </Link>
 
           <Link
+            href="/flash"
+            className="group solana-panel rounded-2xl p-6 transition duration-300 hover:border-amber-400/35 hover:shadow-[0_0_40px_-8px_rgba(251,191,36,0.3)]"
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="bg-gradient-to-r from-amber-200 to-sol-mint bg-clip-text text-xl font-semibold text-transparent">
+                闪电兑换
+              </h2>
+              <span className="text-sm text-amber-200/90 transition group-hover:translate-x-1">
+                进入 →
+              </span>
+            </div>
+            <p className="mt-3 text-sm text-sol-muted">
+              Sepolia 上调用 FlashArbitrage：闪电借 TokenA、经双 Router
+              路径套利并归还；链上模拟、滑点保护与事件解析。
+            </p>
+          </Link>
+
+          <Link
             href="/erc20wallet"
             className="group solana-panel rounded-2xl p-6 transition duration-300 hover:border-sol-mint/30 hover:shadow-[0_0_36px_-10px_rgba(20,241,149,0.25)] md:col-span-2"
           >
